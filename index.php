@@ -1,8 +1,35 @@
 <?php
-function crawlpaginar($url) {
-       $html_da_pag = file_get_contets($url);
-       preg_match('<a href=', $html_da_pag, $matches, PREG_OFFSET_CAPTURE);
-       print_r($matches);
+function crawlpaginar() {
+       $html_da_pag = file_get_contents("https://websitedocaralho.com.br/");
+       $palavrasenc = preg_match_all("/website/", "$html_da_pag", $encontrados);
+       $vezesenc = $palavrasenc -1;
+       if($vezesenc > 0) {
+           return "<br><span>Palavra: {$encontrados[0][0]}<br>Encontrada: $vezesenc Vezes</span>";
+       }
 }
+?>
 
-crawlpaginar('https://www.github.com');
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB CRAWLER</title>
+<style>
+body {
+    background-color:black;
+}
+.resultado {
+    color:red;
+    font-family:'Roboto', sans-serif;
+}
+</style>
+</head>
+<body>
+<div class="resultado">
+    <center>
+    <?php echo crawlpaginar();?>
+    </center>
+    </div>
+</body>
+</html>
